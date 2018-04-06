@@ -53,7 +53,7 @@
                         out.print("</div>");
                     } else {
                         out.print("<h2>Inventory</h2>");
-                        out.print("<h3>Logged in as: " + session.getAttribute("username")   + "</h3>");
+                        out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
                         out.print("</div>");
                     }
                 %>
