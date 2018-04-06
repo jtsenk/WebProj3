@@ -4,7 +4,7 @@
     Author     : JTS
 --%>
 
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" import="project3.*" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,8 +32,8 @@
         <div class="container">
             <div class="jumbotron">
                 <% 
-                    if (session.isNew() || session.getAttribute("username").equals("Guest")) {
-                        out.print("<h2>Hi, " + session.getAttribute("username")   + ", you are not currently logged in</h2>");
+                    if (session.isNew() || (session.getAttribute("userBean") == null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
+                        out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getUsername() + ", you are not currently logged in</h2>");
                         out.print("<h3>Please Login or Register as a new user to shop</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");
@@ -43,7 +43,7 @@
                         out.print("</div>");
                     } else {
                         out.print("<h2>View Cart</h2>");
-                        out.print("<h3>Logged in as: " + session.getAttribute("username")   + "</h3>");
+                        out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
                         out.print("</div>");
                     }
                 %>
