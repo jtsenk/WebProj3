@@ -62,7 +62,7 @@
                         out.print("</div>");
                     }
                     
-                    if (URLDecoder.decode(request.getParameter("message"), "utf-8") != null) {
+                    if (request.getParameter("message") != null) {
                         out.print("<div class='alert alert-danger'><strong>ERROR: </strong>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
                     }
 

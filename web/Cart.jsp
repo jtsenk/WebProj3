@@ -4,6 +4,7 @@
     Author     : JTS
 --%>
 
+<%@page import="project3.UserBean"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +33,8 @@
         <div class="container">
             <div class="jumbotron">
                 <% 
-                    if (session.isNew() || session.getAttribute("username").equals("Guest")) {
-                        out.print("<h2>Hi, " + session.getAttribute("username")   + ", you are not currently logged in</h2>");
+                    if (session.isNew() || (session.getAttribute("userBean") != null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
+                        out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getFirstName()   + ", you are not currently logged in</h2>");
                         out.print("<h3>Please Login or Register as a new user to shop</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");

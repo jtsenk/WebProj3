@@ -23,8 +23,8 @@ public class UserBean implements Serializable {
         this.loggedIn = false;
         this.permissions = 0;
         this.username = "Guest";
-        this.firstname = "";
-        this.lastname = "";
+        this.firstname = "Guest";
+        this.lastname = "Guest";
     }
     
     public UserBean(Users user) {

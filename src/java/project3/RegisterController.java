@@ -37,8 +37,8 @@ public class RegisterController extends HttpServlet {
                 response.sendRedirect("index.jsp?message="+URLEncoder.encode("Already logged in", "utf-8"));
             }
             else {
-                String firstname = request.getParameter("firstname").trim();
-                String lastname = request.getParameter("lastname").trim();
+                String firstname = request.getParameter("firstName").trim();
+                String lastname = request.getParameter("lastName").trim();
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("pw1").trim();
                 String confirmPassword = request.getParameter("pw2").trim();
