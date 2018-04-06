@@ -46,6 +46,7 @@ public class AddToCart extends HttpServlet {
             if(!userBean.isLoggedIn())
             {
                 response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please log in to add things to your cart", "utf-8"));
+                return;
             }
             
             String itemName = request.getParameter("itemName");
@@ -55,10 +56,12 @@ public class AddToCart extends HttpServlet {
                 cartBean.addToCart(new Item(itemName, itemQuantity));
                 session.setAttribute("cartBean", cartBean);
                 response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Item added to cart", "utf-8"));
+                return;
             }
             else
             {
-                response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please choose at least one item", "utf-8"));   
+                response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please choose at least one item", "utf-8"));
+                return;
             }
         }
                 

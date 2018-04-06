@@ -4,12 +4,8 @@
     Author     : JTS
 --%>
 
-<<<<<<< HEAD
 <%@page import="project3.UserBean"%>
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
-=======
-<%@ page contentType="text/html" pageEncoding="UTF-8" import="project3.*" %>
->>>>>>> ba0efbe959d88d1a8b6a747a017c969b1cfc9308
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -37,13 +33,8 @@
         <div class="container">
             <div class="jumbotron">
                 <% 
-<<<<<<< HEAD
-                    if (session.isNew() || (session.getAttribute("userBean") != null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
-                        out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getFirstName() + ", you are not currently logged in</h2>");
-=======
                     if (session.isNew() || (session.getAttribute("userBean") == null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
                         out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getUsername() + ", you are not currently logged in</h2>");
->>>>>>> ba0efbe959d88d1a8b6a747a017c969b1cfc9308
                         out.print("<h3>Please Login or Register as a new user to shop</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");

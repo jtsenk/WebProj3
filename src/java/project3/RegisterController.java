@@ -47,6 +47,7 @@ public class RegisterController extends HttpServlet {
                         || username==null || username.isEmpty() || password==null || password.isEmpty() 
                         || confirmPassword==null || confirmPassword.isEmpty()) {
                     response.sendRedirect("Register.jsp?message="+URLEncoder.encode("Please fill out all fields", "utf-8"));
+                    return;
                 }
                 
                 if(password.equals(confirmPassword)) {
@@ -54,17 +55,21 @@ public class RegisterController extends HttpServlet {
                         if(!DBManip.unameCheck(username)) { //TRUE means username is taken
                             DBManip.createUser(username, password, "0", firstname, lastname, 0);
                             response.sendRedirect("Index.jsp?message="+URLEncoder.encode("Registration successful", "utf-8"));
+                            return;
                         }
                         else {
                             response.sendRedirect("Register.jsp?message="+URLEncoder.encode("Username is already taken", "utf-8"));
+                            return;
                         }
                     }
                     else {
                         response.sendRedirect("Register.jsp?message="+URLEncoder.encode("Password must be between 8 and 24 characters", "utf-8"));
+                        return;
                     }
                 }
                 else {
                     response.sendRedirect("Register.jsp?message="+URLEncoder.encode("Passwords don't match", "utf-8"));
+                    return;
                 }
             }
         }

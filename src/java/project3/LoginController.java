@@ -40,6 +40,7 @@ public class LoginController extends HttpServlet {
             {
                 out.println("Already logged in");
                 response.sendRedirect("Index.jsp");
+                return;
             }
             else
             {
@@ -57,6 +58,7 @@ public class LoginController extends HttpServlet {
                 else
                 {
                     response.sendRedirect("Login.jsp?message="+URLEncoder.encode("Incorrect username and password", "utf-8"));
+                    return;
                 }
             }
         }

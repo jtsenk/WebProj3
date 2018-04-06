@@ -44,11 +44,13 @@ public class Logout extends HttpServlet {
             if(userBean.isLoggedIn())
             {
                 session.invalidate();
-                response.sendRedirect("Index.jsp?message="+URLEncoder.encode("Successfully logged out", "utf-8"));
+                response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("Successfully logged out", "utf-8"));
+                return;
             }
             else
             {
-                response.sendRedirect("Index.jsp?message="+URLEncoder.encode("How can you log out if you never logged in? ðŸ¤”ðŸ¤”ðŸ¤”", "utf-8"));
+                response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("How can you log out if you never logged in?", "utf-8"));
+                return;
             }
             
         }

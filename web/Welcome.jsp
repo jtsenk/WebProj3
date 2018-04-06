@@ -4,6 +4,7 @@
     Author     : JTS
 --%>
 
+<%@page import="java.net.URLDecoder"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" import="project3.*" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +53,10 @@
                         out.print("<div class='col-sm-4' align='center'><a href='Cart.jsp' class='btn btn-primary btn-lg'>View Cart</a></div>");
                         out.print("<div class='col-sm-4' align='center'><a href='Logout.jsp' class='btn btn-primary btn-lg'>Log Out</a></div>");
                         out.print("</div>");
+                    }
+                    
+                    if (request.getParameter("message") != null) {
+                        out.print("<div class='alert alert-info'>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
                     }
                 %>
         </div>      
