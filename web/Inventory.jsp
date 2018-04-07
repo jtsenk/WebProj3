@@ -70,7 +70,7 @@
                                 out.print("<tr>");
                                     out.print("<td>" + rs.getString("item_id") + "</td>");
                                     out.print("<td>" + rs.getString("name") + "</td>");
-                                    out.print("<td>" + rs.getString("price") + "</td>");
+                                    out.print("<td>$" + rs.getString("price") + "</td>");
                                     out.print("<td>" + rs.getString("quantity") + "</td>");
                                     out.print("<td>" + rs.getString("description") + "</td>");
                                     out.print("<td><a href='ItemPage.jsp?id=" + rs.getString("item_id") + "' class='btn btn-primary btn-md'>Add to Cart</a></td>");

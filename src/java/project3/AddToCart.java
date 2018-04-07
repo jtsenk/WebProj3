@@ -50,26 +50,33 @@ public class AddToCart extends HttpServlet {
             {
                 response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please log in to add things to your cart", "utf-8"));
                 return;
-            }
+            } 
             
-            String itemName = request.getParameter("itemName");
-            int itemQuantity = Integer.parseInt(request.getParameter("itemQuantity"));
-            
-            if (itemQuantity>0) {
-                itemName = itemName.replaceAll("\\+", " ");
-                System.out.println(itemName + " " + itemQuantity);
-                Item newItem = new Item(itemName, itemQuantity);
-                System.out.println(newItem.getName());
-                System.out.println(newItem.getQuantity());
-                cartBean.addToCart(newItem);
-                session.setAttribute("cartBean", cartBean);
-                response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Item added to cart", "utf-8"));
-                return;
+            if(request.getParameter("itemName")!=null && request.getParameter("itemQuantity") != null) {
+                String itemName = request.getParameter("itemName");
+                int itemQuantity = Integer.parseInt(request.getParameter("itemQuantity"));
+                
+                if (itemQuantity>0) {
+                    itemName = itemName.replaceAll("\\+", " ");
+                    System.out.println(itemName + " " + itemQuantity);
+                    Item newItem = new Item(itemName, itemQuantity);
+                    System.out.println(newItem.getName());
+                    System.out.println(newItem.getQuantity());
+                    cartBean.addToCart(newItem);
+                    session.setAttribute("cartBean", cartBean);
+                    response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Item added to cart", "utf-8"));
+                    return;
+                }
+                else
+                {
+                    response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please choose at least one item", "utf-8"));
+                    return;
+                }
             }
             else
             {
-                response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Please choose at least one item", "utf-8"));
-                return;
+                    response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("No item specified", "utf-8"));
+                    return;
             }
         }
                 

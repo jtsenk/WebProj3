@@ -46,36 +46,42 @@
                         out.print("<div class='col-sm-4' align='center'><a href='#' class='btn btn-primary btn-lg disabled'>Log Out</a></div>");
                         out.print("</div>");
                     } else {
-                        String sql = "SELECT * FROM Inventory WHERE item_id=" + URLDecoder.decode(request.getParameter("id"), "utf-8");
-                        try {
-                            Connection conn = DriverManager.getConnection(DBManip.url);
-                            PreparedStatement pstmt = conn.prepareStatement(sql);
-                            ResultSet rs = pstmt.executeQuery();
-                            out.print("<h2>Item: " + rs.getString("name") + "</h2>");
-                            out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
+                        if(request.getParameter("id")!=null) {
+                            String sql = "SELECT * FROM Inventory WHERE item_id=" + URLDecoder.decode(request.getParameter("id"), "utf-8");
+                            try {
+                                Connection conn = DriverManager.getConnection(DBManip.url);
+                                PreparedStatement pstmt = conn.prepareStatement(sql);
+                                ResultSet rs = pstmt.executeQuery();
+                                out.print("<h2>Item: " + rs.getString("name") + "</h2>");
+                                out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
+                                out.print("</div>");
+                                out.print("<div class='well'>");
+                                out.print("<form action='AddToCart' method='GET'>");
+                                    out.print("<div class='form-group'>");
+                                        out.print("<label for='itemName'>Item: </label>");
+                                        out.print("<select name='itemName' id='itemName' />");
+                                                out.print("<option>" + rs.getString("name") + "</option>");
+                                        out.print("</select>");
+                                    out.print("</div>");
+                                    out.print("<div class='form-group'>");
+                                        out.print("<label for='itemQuantity'>Select Quantity for " + rs.getString("name") + ": </label>");
+                                        out.print("<select name='itemQuantity' id='itemQuantity' />");
+                                            for (int i=0; i<Integer.parseInt(rs.getString("quantity")); i++) {
+                                                out.print("<option>" + (i+1) + "</option>");
+                                            }
+                                        out.print("</select>");
+                                    out.print("</div>");
+                                    out.print("<button type='submit' class='btn btn-default'>Place Order</button>");
+                                out.print("</form>");
+                                out.print("<br /><a href='Inventory.jsp' class='btn btn-default'>Cancel</a>");
                             out.print("</div>");
-                            out.print("<div class='well'>");
-                            out.print("<form action='AddToCart' method='GET'>");
-                                out.print("<div class='form-group'>");
-                                    out.print("<label for='itemName'>Item: </label>");
-                                    out.print("<select name='itemName' id='itemName' />");
-                                            out.print("<option>" + rs.getString("name") + "</option>");
-                                    out.print("</select>");
-                                out.print("</div>");
-                                out.print("<div class='form-group'>");
-                                    out.print("<label for='itemQuantity'>Select Quantity for " + rs.getString("name") + ": </label>");
-                                    out.print("<select name='itemQuantity' id='itemQuantity' />");
-                                        for (int i=0; i<Integer.parseInt(rs.getString("quantity")); i++) {
-                                            out.print("<option>" + (i+1) + "</option>");
-                                        }
-                                    out.print("</select>");
-                                out.print("</div>");
-                                out.print("<button type='submit' class='btn btn-default'>Place Order</button>");
-                            out.print("</form>");
-                            out.print("<br /><a href='Inventory.jsp' class='btn btn-default'>Cancel</a>");
-                        out.print("</div>");
-                        } catch(Exception e){
-                            System.out.println("Invenotry get error: " + e.getMessage());
+                            } catch(Exception e){
+                                System.out.println("Invenotry get error: " + e.getMessage());
+                            }
+                        }
+                        else
+                        {
+                            out.print("<div class='alert alert-danger'><strong>ERROR: </strong>No item ID specified</div>");
                         }
                     }
                 %>
