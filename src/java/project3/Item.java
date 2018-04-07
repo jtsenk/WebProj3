@@ -7,11 +7,11 @@ package project3;
 public class Item {
     
     private String name;
-    private int price;
+    private int quantity;
     
     public Item(String n, int p) {
         this.name = n;
-        this.price = p;
+        this.quantity = p;
     }
     
     public void setName(String n) {
@@ -22,12 +22,12 @@ public class Item {
         return this.name;
     }
     
-    public int getPrice() {
-        return this.price;
+    public int getQuantity() {
+        return this.quantity;
     }
     
-    public void setPrice(int p) {
-        this.price = p;
+    public void setQuantity(int p) {
+        this.quantity = p;
     }
     
     

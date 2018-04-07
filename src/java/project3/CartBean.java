@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CartBean implements Serializable {
     private ArrayList<Item> cart;
     
-    public void CartBean() {
+    public CartBean() {
         cart = new ArrayList();
     }
     
