@@ -31,7 +31,7 @@ public class Inventory {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+        	
 	public String getName(){
 		return n;		
 	}

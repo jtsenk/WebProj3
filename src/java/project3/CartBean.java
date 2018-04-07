@@ -11,7 +11,7 @@ public class CartBean implements Serializable {
     private ArrayList<Item> cart;
     
     public void CartBean() {
-        cart = new ArrayList();
+        cart = new ArrayList<Item>();
     }
     
     public void addToCart(Item i) {

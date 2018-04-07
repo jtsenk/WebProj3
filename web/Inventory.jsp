@@ -4,7 +4,8 @@
     Author     : JTS
 --%>
 
-<%@page import="project3.UserBean"%>
+<%@page import="java.net.URLDecoder"%>
+<%@page import="project3.*, java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +47,42 @@
                         out.print("<h2>Inventory</h2>");
                         out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
                         out.print("</div>");
+                        
+                        if (request.getParameter("message") != null) {
+                        out.print("<br /><div class='alert alert-info'>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
+                        }
+                        
+                        String sql = "SELECT * FROM Inventory";
+                        try {
+                            Connection conn = DriverManager.getConnection(DBManip.url);
+                            PreparedStatement pstmt = conn.prepareStatement(sql);
+                            ResultSet rs = pstmt.executeQuery();
+                            out.print("<table class='table table-striped'>");
+                                out.print("<thead><tr>");
+                                    out.print("<th>Item ID</th>");
+                                    out.print("<th>Name</th>");
+                                    out.print("<th>Price</th>");
+                                    out.print("<th>Qty</th>");
+                                    out.print("<th>Description</th>");
+                                    out.print("<th>Add Item to Cart</th>");
+                                out.print("</tr></thead>");
+                            while(rs.next()) {
+                                out.print("<tr>");
+                                    out.print("<td>" + rs.getString("item_id") + "</td>");
+                                    out.print("<td>" + rs.getString("name") + "</td>");
+                                    out.print("<td>" + rs.getString("price") + "</td>");
+                                    out.print("<td>" + rs.getString("quantity") + "</td>");
+                                    out.print("<td>" + rs.getString("description") + "</td>");
+                                    out.print("<td><a href='ItemPage.jsp?id=" + rs.getString("item_id") + "' class='btn btn-primary btn-md'>Add to Cart</a></td>");
+                                out.print("</tr>");
+                            }
+                            out.print("</table>");
+			
+                        } catch(Exception e){
+                            System.out.println("Invenotry get error: " + e.getMessage());
+                        }
+                        
+                        
                     }
                 %>
         </div>      

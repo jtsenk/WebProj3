@@ -56,7 +56,7 @@
                     }
                     
                     if (request.getParameter("message") != null) {
-                        out.print("<div class='alert alert-info'>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
+                        out.print("<br /><div class='alert alert-info'>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
                     }
                 %>
         </div>      
