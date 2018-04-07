@@ -64,7 +64,7 @@
                         out.print("</div>");
                     } else {
                         out.print("<h2>Currently Logged in as " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h2>");
-                        out.print("<h3>Log out if you want to register a new user, or continue as " + session.getAttribute("username") + "</h3>");
+                        out.print("<h3>Log out if you want to register a new user, or continue as " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");
                         out.print("<div class='col-sm-4' align='center'><a href='Logout.jsp' class='btn btn-primary btn-lg'>Log Out</a></div>");

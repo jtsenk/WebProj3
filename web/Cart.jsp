@@ -31,8 +31,6 @@
         <div class="container">
             <div class="jumbotron">
                 <% 
-                    if (session.isNew() || (session.getAttribute("userBean") != null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
-                        out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getFirstName()   + ", you are not currently logged in</h2>");
                     if (session.isNew() || (session.getAttribute("userBean") == null) || (((UserBean)session.getAttribute("userBean")).getUsername().equals("Guest"))) {
                         out.print("<h2>Hi, " + ((UserBean)session.getAttribute("userBean")).getUsername() + ", you are not currently logged in</h2>");
                         out.print("<h3>Please Login or Register as a new user to shop</h3>");
