@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public class CartBean implements Serializable {
     private ArrayList<Item> cart;
     
-    public void CartBean() {
-        cart = new ArrayList<Item>();
+
+    public CartBean() {
+        cart = new ArrayList();
     }
     
     public void addToCart(Item i) {

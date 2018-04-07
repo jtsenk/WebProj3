@@ -12,6 +12,7 @@ public class Item {
     public Item(String n, int q) {
         this.name = n;
         this.quantity = q;
+
     }
     
     public void setName(String n) {

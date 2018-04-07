@@ -41,10 +41,12 @@ public class ManagementLoginController extends HttpServlet {
                 if(userBean.getPermissions()==1)
                 {
                     response.sendRedirect("Management.jsp");
+                    return;
                 }
                 else
                 {
-                    response.sendRedirect("Index.jsp");
+                    response.sendRedirect("Welcome.jsp");
+                    return;
                 }
             }
             else
@@ -59,11 +61,13 @@ public class ManagementLoginController extends HttpServlet {
                        userBean = new UserBean(DBManip.userFind(username));
                        session.setAttribute("userBean", userBean);
                        response.sendRedirect("Management.jsp?message="+URLEncoder.encode("Successfully logged in", "utf-8"));
+                       return;
                    }
                 }
                 else
                 {
                     response.sendRedirect("ManagementLogin.jsp?message="+URLEncoder.encode("Incorrect username and password", "utf-8"));
+                    return;
                 }
             }
         }
