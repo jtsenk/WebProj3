@@ -2,7 +2,7 @@ package project3;
 import java.sql.*;
 
 public class DBManip {
-	static String url = "jdbc:sqlite:D:/GitHub/WebProj3/Project3.db";       //change to your local directory
+	public static String url = "jdbc:sqlite:../../Project3.db";       //change to your local directory
         
         public static void initDB() {
             try {

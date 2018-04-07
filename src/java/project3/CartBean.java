@@ -10,11 +10,15 @@ import java.util.ArrayList;
 public class CartBean implements Serializable {
     private ArrayList<Item> cart;
     
+
     public CartBean() {
         cart = new ArrayList();
     }
     
     public void addToCart(Item i) {
+        if (cart == null) {
+            System.out.println("cart is null within CartBean");
+        }
         cart.add(i);
     }
     

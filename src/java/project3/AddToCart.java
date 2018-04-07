@@ -40,7 +40,10 @@ public class AddToCart extends HttpServlet {
             CartBean cartBean = (CartBean) session.getAttribute("cartBean");
             UserBean userBean = (UserBean) session.getAttribute("userBean");
             
-            if(cartBean==null) {cartBean = new CartBean();}
+            if(cartBean==null) {
+                System.out.println("cartBean is null");
+                cartBean = new CartBean();
+            }
             if(userBean==null) {userBean = new UserBean();}
             
             if(!userBean.isLoggedIn())
@@ -53,7 +56,12 @@ public class AddToCart extends HttpServlet {
             int itemQuantity = Integer.parseInt(request.getParameter("itemQuantity"));
             
             if (itemQuantity>0) {
-                cartBean.addToCart(new Item(itemName, itemQuantity));
+                itemName = itemName.replaceAll("\\+", " ");
+                System.out.println(itemName + " " + itemQuantity);
+                Item newItem = new Item(itemName, itemQuantity);
+                System.out.println(newItem.getName());
+                System.out.println(newItem.getQuantity());
+                cartBean.addToCart(newItem);
                 session.setAttribute("cartBean", cartBean);
                 response.sendRedirect("Inventory.jsp?message="+URLEncoder.encode("Item added to cart", "utf-8"));
                 return;

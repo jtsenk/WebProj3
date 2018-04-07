@@ -9,9 +9,10 @@ public class Item {
     private String name;
     private int quantity;
     
-    public Item(String n, int p) {
+    public Item(String n, int q) {
         this.name = n;
-        this.quantity = p;
+        this.quantity = q;
+
     }
     
     public void setName(String n) {
@@ -26,8 +27,8 @@ public class Item {
         return this.quantity;
     }
     
-    public void setQuantity(int p) {
-        this.quantity = p;
+    public void setQuantity(int q) {
+        this.quantity = q;
     }
     
     
