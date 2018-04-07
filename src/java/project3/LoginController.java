@@ -38,14 +38,13 @@ public class LoginController extends HttpServlet {
             
             if(userBean.isLoggedIn())
             {
-                out.println("Already logged in");
-                response.sendRedirect("Index.jsp");
+                response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("Already logged in", "utf-8"));
                 return;
             }
             else
             {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
+                String username = request.getParameter("username").trim();
+                String password = request.getParameter("pw");
                 String permissions = DBManip.testLogin(username, password);
                 if(!permissions.equals("x"))
                 {
@@ -54,6 +53,7 @@ public class LoginController extends HttpServlet {
                    userBean.setPermissions(Integer.parseInt(permissions));
                    userBean.setLoggedIn(true);
                    session.setAttribute("userBean", userBean);
+                   response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("Login Successful", "utf-8"));
                 }
                 else
                 {

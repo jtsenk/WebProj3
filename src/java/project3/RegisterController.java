@@ -52,9 +52,9 @@ public class RegisterController extends HttpServlet {
                 
                 if(password.equals(confirmPassword)) {
                     if(password.matches("\\w{8,24}")) {
-                        if(!DBManip.unameCheck(username)) { //TRUE means username is taken
+                        if(DBManip.unameCheck(username)) { //TRUE means username is taken
                             DBManip.createUser(username, password, "0", firstname, lastname, 0);
-                            response.sendRedirect("Index.jsp?message="+URLEncoder.encode("Registration successful", "utf-8"));
+                            response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("Registration successful", "utf-8"));
                             return;
                         }
                         else {

@@ -2,28 +2,36 @@ package project3;
 import java.sql.*;
 
 public class DBManip {
-	static String url = "jdbc:sqlite:../../Project3.db";
-	
-	public static String testLogin(String one, String two){
+	static String url = "jdbc:sqlite:D:/GitHub/WebProj3/Project3.db";       //change to your local directory
+        
+        public static void initDB() {
+            try {
+                Class.forName("org.sqlite.JDBC");
+            }
+            catch (ClassNotFoundException e){System.out.println(e.getException());}
+        }
+        
+	public static String testLogin(String one, String two) {  
+        initDB();
         String sql = "SELECT username, password, permissions FROM Users";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
-            
             // loop through the result set
             while (rs.next()) {
                 if(rs.getString("username").equals(one) && rs.getString("password").equals(two)){
-                	return rs.getString("permissions"); //return permission if login credentials are valid
+                	return ""+rs.getInt("permissions"); //return permission if login credentials are valid
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-		return "x"; //return x if credentials are invalid
+        return "x"; //return x if credentials are invalid
     }
 	
 	//id will have to be generated somewhere
 	public static void createUser(String u, String p, String d, String f, String l, int id) {
+        initDB();
         String sql = "INSERT INTO Users(username,password,permissions,first_name,last_name,user_id) VALUES(?,?,?,?,?,?)";
         if(testLogin(u,p).equals("x")){ //tests to see that user does not exist
 	        try (Connection conn = DriverManager.getConnection(url);
@@ -42,6 +50,7 @@ public class DBManip {
     }
 
 	public static void createTrans(int t_id,String d, int u_id, int i_id, int q){
+                initDB();
 		String sql2 = "INSERT INTO Transactions(transaction_id,date,user_id,item_id,quantity) VALUES(?,?,?,?,?)";
 		 try (Connection conn = DriverManager.getConnection(url);
 	                PreparedStatement pstmt = conn.prepareStatement(sql2)) {
@@ -58,7 +67,8 @@ public class DBManip {
 	}
 	
 	public static void createInventory(int i_id,String n, double p, int q, String d){
-		String sql2 = "INSERT INTO Inventory(item_id,name,price,quantity,description) VALUES(?,?,?,?,?)";
+		initDB();
+                String sql2 = "INSERT INTO Inventory(item_id,name,price,quantity,description) VALUES(?,?,?,?,?)";
 		 try (Connection conn = DriverManager.getConnection(url);
 	                PreparedStatement pstmt = conn.prepareStatement(sql2)) {
 			 	pstmt.setNull(1, 0);
@@ -74,7 +84,8 @@ public class DBManip {
 	}
 	
 	public static boolean unameCheck(String u){
-		  String sql = "SELECT username FROM Users";
+		initDB();
+                String sql = "SELECT username FROM Users";
 	        
 	        try (Connection conn = DriverManager.getConnection(url);
 	             Statement stmt  = conn.createStatement();
@@ -93,7 +104,8 @@ public class DBManip {
 	    }
 	
 	public static Inventory itemFind(String n){
-		String sql = "SELECT item_id From Inventory " + "WHERE name = ?";
+		initDB();
+                String sql = "SELECT item_id From Inventory " + "WHERE name = ?";
 		int id = -1;
 		try (Connection conn = DriverManager.getConnection(DBManip.url);
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
@@ -110,7 +122,8 @@ public class DBManip {
 	}
 	
 	public static Users userFind(String u){
-		String sql = "SELECT user_id From Users " + "WHERE username = ?";
+		initDB();
+                String sql = "SELECT user_id From Users " + "WHERE username = ?";
 		int id = -1;
 		try (Connection conn = DriverManager.getConnection(DBManip.url);
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
