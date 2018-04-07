@@ -15,6 +15,9 @@ public class CartBean implements Serializable {
     }
     
     public void addToCart(Item i) {
+        if (cart == null) {
+            System.out.println("cart is null within CartBean");
+        }
         cart.add(i);
     }
     
