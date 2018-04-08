@@ -68,7 +68,7 @@ public class DBManip {
 	        }
 	}
 	
-	public static void createInventory(int i_id,String n, double p, int q, String d){
+	public static void createInventory(String n, double p, int q, String d){
 		initDB();
                 String sql2 = "INSERT INTO Inventory(item_id,name,price,quantity,description) VALUES(?,?,?,?,?)";
 		 try (Connection conn = DriverManager.getConnection(url);
@@ -145,34 +145,49 @@ public class DBManip {
 		}
 	}
         
-        	public static void itemUpdate(String n, int num){
-		//retrieve current quantity
-		String sql = "SELECT quantity From Inventory " + "WHERE name = ?";
-		int q;
-		try (Connection conn = DriverManager.getConnection(DBManip.url);
-				PreparedStatement pstmt = conn.prepareStatement(sql);){
-			pstmt.setString(1, n);
-			ResultSet rs = pstmt.executeQuery();
-			q = rs.getInt("quantity");
-                        
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-			q = -1;
-		}
-		if (q!=-1)
-                {
-                    //reduce quantity by the amount passed
-                    String sql2 = "UPDATE Inventory SET quantity = ?" + "WHERE name = ?";
-                    try (Connection conn = DriverManager.getConnection(url);
-                                    PreparedStatement pstmt = conn.prepareStatement(sql2)){
-                            pstmt.setInt(1, (q-num));
-                            pstmt.setString(2, n);
-                            pstmt.executeUpdate();
-                            
-                    } catch(SQLException e){
-                            System.out.println(e.getMessage());
-                    }
-                }		
+       public static void itemUpdate(String n, int num){
+            initDB();
+            //retrieve current quantity
+            String sql = "SELECT quantity From Inventory " + "WHERE name = ?";
+            int q;
+            try (Connection conn = DriverManager.getConnection(DBManip.url);
+                            PreparedStatement pstmt = conn.prepareStatement(sql);){
+                    pstmt.setString(1, n);
+                    ResultSet rs = pstmt.executeQuery();
+                    q = rs.getInt("quantity");
+
+            } catch(SQLException e){
+                    System.out.println(e.getMessage());
+                    q = -1;
+            }
+            if (q!=-1)
+            {
+                //reduce quantity by the amount passed
+                String sql2 = "UPDATE Inventory SET quantity = ?" + "WHERE name = ?";
+                try (Connection conn = DriverManager.getConnection(url);
+                                PreparedStatement pstmt = conn.prepareStatement(sql2)){
+                        pstmt.setInt(1, (q-num));
+                        pstmt.setString(2, n);
+                        pstmt.executeUpdate();
+
+                } catch(SQLException e){
+                        System.out.println(e.getMessage());
+                }
+            }		
+	}
+       
+       public static void itemUpdateInventory(String n, int num) {
+           initDB();
+           String sql2 = "UPDATE Inventory SET quantity = ?" + "WHERE name = ?";
+            try (Connection conn = DriverManager.getConnection(url);
+                            PreparedStatement pstmt = conn.prepareStatement(sql2)){
+                    pstmt.setInt(1, (num));
+                    pstmt.setString(2, n);
+                    pstmt.executeUpdate();
+
+            } catch(SQLException e){
+                    System.out.println(e.getMessage());
+            }	
 	}
 	
 }

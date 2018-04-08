@@ -4,6 +4,8 @@
     Author     : JTS
 --%>
 
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page import="project3.*"%>
 <%@page import="java.sql.*"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
@@ -44,10 +46,13 @@
                         out.print("<div class='col-sm-4' align='center'><a href='Login.jsp' class='btn btn-primary btn-lg'>Login</a></div>");
                         out.print("<div class='col-sm-4' align='center'><a href='#' class='btn btn-primary btn-lg disabled'>Log Out</a></div>");
                         out.print("</div>");
-                    } else {
+                    } else if (((UserBean)session.getAttribute("userBean")).getPermissions()==1){
                         out.print("<h2>Management Page</h2>");
                         out.print("<h3>Logged in as: " + ((UserBean)session.getAttribute("userBean")).getUsername()   + "</h3>");
                         out.print("</div>");
+                        if (request.getParameter("message") != null) {
+                            out.print("<br /><div class='alert alert-info'>" + URLDecoder.decode(request.getParameter("message"), "utf-8") + "</div>");
+                        }
                         out.print("<div class='well'>");
                         out.print("<h3>Current Inventory</h3>");
                             String sql = "SELECT * FROM Inventory";
@@ -111,7 +116,7 @@
                                         out.print("<label for='itemDesc'>Item Description:</label>");
                                         out.print("<input class='form-control' type='text' name='itemDesc' id='itemDesc' />");
                                     out.print("</div>");
-                                    out.print("<button type='submit' class='btn btn-default'>Update Quantity</button>");
+                                    out.print("<button type='submit' class='btn btn-default'>Add Item</button>");
                                 out.print("</form>");
                             out.print("</div>");
                             conn.close();
@@ -150,6 +155,11 @@
                         } catch(Exception e){
                             System.out.println("Transaction get error: " + e.getMessage());
                         }
+                    }
+                    else
+                    {
+                        response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("Unauthorized Access", "utf-8"));
+                        return;
                     }
                 %>
         </div>      

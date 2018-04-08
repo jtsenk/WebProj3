@@ -71,7 +71,7 @@
                                             }
                                         out.print("</select>");
                                     out.print("</div>");
-                                    out.print("<button type='submit' class='btn btn-default'>Place Order</button>");
+                                    out.print("<button type='submit' class='btn btn-default'>Add to Cart</button>");
                                 out.print("</form>");
                                 out.print("<br /><a href='Inventory.jsp' class='btn btn-default'>Cancel</a>");
                             out.print("</div>");
