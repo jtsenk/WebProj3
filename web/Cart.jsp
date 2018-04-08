@@ -71,7 +71,7 @@
                                     out.print("</tr></thead>");
                                     double grandTotal = 0.0;
                                     double subTotal = 0.0;
-                                    DecimalFormat df = new DecimalFormat("#.00");
+                                    DecimalFormat df = new DecimalFormat("0.00");
                                     for (int i=0; i<cart.size(); i++) {
                                         Item currItem = (Item)cart.get(i);
                                         String currName = currItem.getName();
@@ -89,6 +89,7 @@
                                                 out.print("<td>$" + df.format(subTotal) + "</td>");
                                                 out.print("<td><a href='#' class='btn btn-primary btn-md'>Remove</a></td>");
                                             out.print("</tr>");
+                                            conn.close();
                                         } catch(Exception e){
                                             System.out.println("Cart get error: " + e.getMessage());
                                         }

@@ -23,6 +23,7 @@ public class DBManip {
                 	return ""+rs.getInt("permissions"); //return permission if login credentials are valid
                 }
             }
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -43,6 +44,7 @@ public class DBManip {
 	            pstmt.setString(5, l);
 	            pstmt.setNull(6, 0);
 	            pstmt.executeUpdate();
+                    conn.close();
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -60,7 +62,7 @@ public class DBManip {
 	            pstmt.setInt(4, i_id);
 	            pstmt.setInt(5, q);
 	            pstmt.executeUpdate();
-	  
+                    
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -77,7 +79,7 @@ public class DBManip {
 	            pstmt.setInt(4, q);
 	            pstmt.setString(5, d);
 	            pstmt.executeUpdate();
-	  
+                    conn.close();
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -94,9 +96,11 @@ public class DBManip {
 	            // loop through the result set
 	            while (rs.next()) {
 	                if(rs.getString("username").equals(u)){
+                                conn.close();
 	                	return false; //return permission if user name does not exist
 	                }
 	            }
+                    conn.close();
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -113,6 +117,7 @@ public class DBManip {
 			ResultSet rs = pstmt.executeQuery();
 					id = rs.getInt("item_id");
 					Inventory temp = new Inventory(id);
+                                        
 					return temp;
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
@@ -129,8 +134,9 @@ public class DBManip {
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pstmt.setString(1, u);
 			ResultSet rs = pstmt.executeQuery();
-					id = rs.getInt("item_id");
+					id = rs.getInt("user_id");
 					Users temp = new Users(id);
+                                        
 					return temp;
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
@@ -148,6 +154,7 @@ public class DBManip {
 			pstmt.setString(1, n);
 			ResultSet rs = pstmt.executeQuery();
 			q = rs.getInt("quantity");
+                        
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
 			q = -1;
@@ -161,6 +168,7 @@ public class DBManip {
                             pstmt.setInt(1, (q-num));
                             pstmt.setString(2, n);
                             pstmt.executeUpdate();
+                            
                     } catch(SQLException e){
                             System.out.println(e.getMessage());
                     }

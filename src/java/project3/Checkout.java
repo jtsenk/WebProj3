@@ -55,9 +55,11 @@ public class Checkout extends HttpServlet {
             
             for (Item item : cartBean.getCart())
             {
+                System.out.println("Getting item name and qty");
                 DBManip.itemUpdate(item.getName(), item.getQuantity());
-                
+                System.out.println("Getting temp item name");
                 Inventory tempInv = DBManip.itemFind(item.getName());
+                System.out.println("Getting username");
                 Users tempUser = DBManip.userFind(userBean.getUsername());
                 
                 int UID = tempUser.getID();
@@ -65,7 +67,7 @@ public class Checkout extends HttpServlet {
                 int q = item.getQuantity();
                 
                 String date = new SimpleDateFormat("yyyy.MM.dd.HH.mm").format(new Date());
-                
+                System.out.println("inserting transaction");
                 DBManip.createTrans(date, UID, IID, q);
             }
             cartBean.clearCart();
