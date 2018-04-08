@@ -76,10 +76,11 @@
                                     out.print("<td><a href='ItemPage.jsp?id=" + rs.getString("item_id") + "' class='btn btn-primary btn-md'>Add to Cart</a></td>");
                                 out.print("</tr>");
                             }
+                            conn.close();
                             out.print("</table>");
 			
                         } catch(Exception e){
-                            System.out.println("Invenotry get error: " + e.getMessage());
+                            System.out.println("Inventory get error: " + e.getMessage());
                         }
                         
                         

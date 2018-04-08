@@ -75,6 +75,7 @@
                                 out.print("</form>");
                                 out.print("<br /><a href='Inventory.jsp' class='btn btn-default'>Cancel</a>");
                             out.print("</div>");
+                            conn.close();
                             } catch(Exception e){
                                 System.out.println("Invenotry get error: " + e.getMessage());
                             }

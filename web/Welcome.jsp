@@ -53,6 +53,10 @@
                         out.print("<div class='col-sm-4' align='center'><a href='Cart.jsp' class='btn btn-primary btn-lg'>View Cart</a></div>");
                         out.print("<div class='col-sm-4' align='center'><a href='Logout.jsp' class='btn btn-primary btn-lg'>Log Out</a></div>");
                         out.print("</div>");
+                        System.out.println( ((UserBean)session.getAttribute("userBean")).getPermissions() );
+                        if ( (((UserBean)session.getAttribute("userBean")).getPermissions()) == 1 ) {
+                            out.print("<br /><a href='Management.jsp' class='btn btn-primary btn-lg'>Management Page</a><br />");
+                        }
                     }
                     
                     if (request.getParameter("message") != null) {
