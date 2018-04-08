@@ -49,12 +49,12 @@ public class DBManip {
         }
     }
 
-	public static void createTrans(int t_id,String d, int u_id, int i_id, int q){
+	public static void createTrans(String d, int u_id, int i_id, int q){
                 initDB();
 		String sql2 = "INSERT INTO Transactions(transaction_id,date,user_id,item_id,quantity) VALUES(?,?,?,?,?)";
 		 try (Connection conn = DriverManager.getConnection(url);
 	                PreparedStatement pstmt = conn.prepareStatement(sql2)) {
-			 	pstmt.setNull(1, 0);
+                    pstmt.setNull(1, 0);
 	            pstmt.setString(2, d);
 	            pstmt.setInt(3, u_id);
 	            pstmt.setInt(4, i_id);
@@ -137,6 +137,34 @@ public class DBManip {
 		Users fail = new Users(-1);
 		return fail;
 		}
+	}
+        
+        	public static void itemUpdate(String n, int num){
+		//retrieve current quantity
+		String sql = "SELECT quantity From Inventory " + "WHERE name = ?";
+		int q;
+		try (Connection conn = DriverManager.getConnection(DBManip.url);
+				PreparedStatement pstmt = conn.prepareStatement(sql);){
+			pstmt.setString(1, n);
+			ResultSet rs = pstmt.executeQuery();
+			q = rs.getInt("quantity");
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+			q = -1;
+		}
+		if (q!=-1)
+                {
+                    //reduce quantity by the amount passed
+                    String sql2 = "UPDATE Inventory SET quantity = ?" + "WHERE name = ?";
+                    try (Connection conn = DriverManager.getConnection(url);
+                                    PreparedStatement pstmt = conn.prepareStatement(sql2)){
+                            pstmt.setInt(1, (q-num));
+                            pstmt.setString(2, n);
+                            pstmt.executeUpdate();
+                    } catch(SQLException e){
+                            System.out.println(e.getMessage());
+                    }
+                }		
 	}
 	
 }

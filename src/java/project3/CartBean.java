@@ -45,4 +45,8 @@ public class CartBean implements Serializable {
         return this.cart;
     }
     
+    public void clearCart() {
+        this.cart.clear();
+    }
+    
 }

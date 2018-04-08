@@ -14,17 +14,17 @@ public class Inventory {
 	private int q;
 	
 	public Inventory(int num){
-		id = num;
+		this.id = num;
 		String sql = "SELECT name,price,quantity, description From Inventory " + "WHERE item_id = ?";
 		try (Connection conn = DriverManager.getConnection(DBManip.url);
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, this.id);
 			ResultSet rs = pstmt.executeQuery();
 			
-					n = rs.getString("name");
-					p = rs.getDouble("price");
-					q = rs.getInt("quantity");
-					des = rs.getString("description");
+					this.n = rs.getString("name");
+					this.p = rs.getDouble("price");
+					this.q = rs.getInt("quantity");
+					this.des = rs.getString("description");
 
 			
 		} catch(SQLException e){
@@ -33,16 +33,19 @@ public class Inventory {
 	}
         	
 	public String getName(){
-		return n;		
+		return this.n;		
 	}
 	public double getPrice(){
-		return p;
+		return this.p;
 	}
 	public String getDescription(){
-		return des;
+		return this.des;
 	}
 	public int getQuantity(){
-		return q;
+		return this.q;
 	}
+        public int getID() {
+            return this.id;
+        }
 
 }

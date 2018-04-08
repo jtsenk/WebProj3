@@ -14,17 +14,17 @@ public class Users {
 	private int p;
 	
 	public Users(int n){
-		id = n;
+		this.id = n;
 		String sql = "SELECT username,first_name,last_name,permissions From Users " + "WHERE user_id = ?";
 		try (Connection conn = DriverManager.getConnection(DBManip.url);
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, this.id);
 			ResultSet rs = pstmt.executeQuery();
 			
-					uname = rs.getString("username");
-					fname = rs.getString("first_name");
-					lname = rs.getString("last_name");
-					p = rs.getInt("permissions");
+					this.uname = rs.getString("username");
+					this.fname = rs.getString("first_name");
+					this.lname = rs.getString("last_name");
+					this.p = rs.getInt("permissions");
 					
 
 			
@@ -34,16 +34,19 @@ public class Users {
 	}
 	
 	public String getUsername(){
-		return uname;		
+		return this.uname;		
 	}
 	public String getFirstName(){
-		return fname;
+		return this.fname;
 	}
 	public String getLastName(){
-		return lname;
+		return this.lname;
 	}
 	public int getPermissions(){
-		return p;
+		return this.p;
 	}
+        public int getID() {
+            return this.id;
+        }
 
 }
