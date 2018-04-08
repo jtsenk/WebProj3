@@ -17,7 +17,7 @@ public class CartBean implements Serializable {
     
     public void addToCart(Item item) {
         int quantity = item.getQuantity();
-        for (int i = 0; i<= cart.size(); i++)
+        for (int i = 0; i< cart.size(); i++)
         {
             if (cart.get(i).getName().equals(item.getName())) //gets quantities from other instances of item in cart, removes old instances
             {
