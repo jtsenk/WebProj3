@@ -89,7 +89,7 @@
                                     }
                                     out.print("</table></div>");
                                     out.print("<div class='well row'>");
-                                    out.print("<div class='col-sm-6'><a href='#' class='btn btn-primary btn-lg'>Place Order</a></div>");
+                                    out.print("<div class='col-sm-6'><a href='Checkout' class='btn btn-primary btn-lg'>Place Order</a></div>");
                                     out.print("<div class='col-sm-6'><h2>Grand Total: $" + df.format(grandTotal) + "</h2></div>");
                                     out.print("<a href='Cart.jsp' class='btn btn-primary btn-lg'>Back to Cart - Modify Order</a>");
                             }
