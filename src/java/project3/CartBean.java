@@ -29,10 +29,10 @@ public class CartBean implements Serializable {
         cart.add(newItem);
     }
     
-    public void removeFromCart(Item item) {
+    public void removeFromCart(String name) {
         for (int i = 0; i<= cart.size(); i++)
         {
-            if (cart.get(i).getName().equals(item.getName())) //removes first instance of item from cart
+            if (cart.get(i).getName().equals(name)) //removes first instance of item from cart
             {
                 cart.remove(i);
                 break;

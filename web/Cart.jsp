@@ -87,7 +87,7 @@
                                                 subTotal = currQty*Double.parseDouble(rs.getString("price"));
                                                 grandTotal += subTotal;
                                                 out.print("<td>$" + df.format(subTotal) + "</td>");
-                                                out.print("<td><a href='#' class='btn btn-primary btn-md'>Remove</a></td>");
+                                                out.print("<td><a href='RemoveFromCart?itemName="+URLEncoder.encode(rs.getString("name"), "utf-8")+"' class='btn btn-primary btn-md'>Remove</a></td>");
                                             out.print("</tr>");
                                             conn.close();
                                         } catch(Exception e){

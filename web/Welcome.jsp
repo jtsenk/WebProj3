@@ -55,7 +55,7 @@
                         out.print("</div>");
                         System.out.println( ((UserBean)session.getAttribute("userBean")).getPermissions() );
                         if ( (((UserBean)session.getAttribute("userBean")).getPermissions()) == 1 ) {
-                            out.print("<br /><a href='Management.jsp' class='btn btn-primary btn-lg'>Management Page</a><br />");
+                            out.print("<br /><div style='text-align:center'><a href='Management.jsp' class='btn btn-primary btn-lg'>Management Page</a></div><br />");
                         }
                     }
                     
