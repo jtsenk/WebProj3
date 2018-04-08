@@ -4,7 +4,10 @@
     Author     : JTS
 --%>
 
-<%@page import="project3.UserBean"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.*"%>
+<%@page import="project3.*"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +37,7 @@
             <div class="jumbotron">
                 <% 
                     if (session.isNew()) {
-                        out.print("<h2>Welcome to Project 3, " + ((UserBean)session.getAttribute("userBean")).getUsername()   + "!</h2>");
+                        out.print("<h2>Welcome to Project 3, Guest!</h2>");
                         out.print("<h3>Please Login or Register as a new user to shop</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");
@@ -43,14 +46,53 @@
                         out.print("<div class='col-sm-4' align='center'><a href='#' class='btn btn-primary btn-lg disabled'>Log Out</a></div>");
                         out.print("</div>");
                     } else {
-                        out.print("<h2>Welcome back to Project 3, " + ((UserBean)session.getAttribute("userBean")).getFirstName()   + "!</h2>");
-                        out.print("<h3>Continue to Inventory below to start shopping</h3>");
+                        out.print("<h2>Checkout</h2>");
+                        out.print("<h3>Please verify order below</h3>");
                         out.print("</div>");
-                        out.print("<div class='row'>");
-                        out.print("<div class='col-sm-4' align='center'><a href='Inventory.jsp' class='btn btn-primary btn-lg'>Inventory</a></div>");
-                        out.print("<div class='col-sm-4' align='center'><a href='Cart.jsp' class='btn btn-primary btn-lg'>View Cart</a></div>");
-                        out.print("<div class='col-sm-4' align='center'><a href='Logout.jsp' class='btn btn-primary btn-lg'>Log Out</a></div>");
-                        out.print("</div>");
+                        CartBean cartBean = (CartBean) session.getAttribute("cartBean");
+                        out.print("<div class='well'>"); 
+                        if(cartBean==null) {
+                            System.out.println("cartBean is null");
+                            cartBean = new CartBean();
+                            out.print("Cart is Empty");
+                            out.print("</div>");
+                        } else {
+                            ArrayList cart = cartBean.getCart();
+                            out.print("<table class='table table-striped'>");
+                                    out.print("<thead><tr>");
+                                        out.print("<th>Item</th>");
+                                        out.print("<th>Qty</th>");
+                                        out.print("<th>Subtotal</th>");
+                                    out.print("</tr></thead>");
+                                    double grandTotal = 0.0;
+                                    double subTotal = 0.0;
+                                    DecimalFormat df = new DecimalFormat("#.00");
+                                    for (int i=0; i<cart.size(); i++) {
+                                        Item currItem = (Item)cart.get(i);
+                                        String currName = currItem.getName();
+                                        int currQty = currItem.getQuantity();
+                                        String sql = "SELECT * FROM Inventory WHERE name=\'" + currName + "\'";
+                                        try {
+                                            Connection conn = DriverManager.getConnection(DBManip.url);
+                                            PreparedStatement pstmt = conn.prepareStatement(sql);
+                                            ResultSet rs = pstmt.executeQuery();
+                                            out.print("<tr>");
+                                                out.print("<td>" + rs.getString("name") + "</td>");
+                                                out.print("<td>" + currQty + "</td>");
+                                                subTotal = currQty*Double.parseDouble(rs.getString("price"));
+                                                grandTotal += subTotal;
+                                                out.print("<td>$" + df.format(subTotal) + "</td>");
+                                            out.print("</tr>");
+                                        } catch(Exception e){
+                                            System.out.println("Cart get error: " + e.getMessage());
+                                        }
+                                    }
+                                    out.print("</table></div>");
+                                    out.print("<div class='well row'>");
+                                    out.print("<div class='col-sm-6'><a href='#' class='btn btn-primary btn-lg'>Place Order</a></div>");
+                                    out.print("<div class='col-sm-6'><h2>Grand Total: $" + df.format(grandTotal) + "</h2></div>");
+                                    out.print("<a href='Cart.jsp' class='btn btn-primary btn-lg'>Back to Cart - Modify Order</a>");
+                            }
                     }
                 %>
         </div>      
