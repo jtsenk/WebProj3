@@ -25,7 +25,7 @@
                     <li><a href="Login.jsp">Login</a></li>
                     <li><a href="Inventory.jsp">Inventory</a></li>
                     <li><a href="Cart.jsp">View Cart</a></li>
-                    <li><a href="Logout.jsp">Log Out</a></li>
+                    <li><a href="Logout">Log Out</a></li>
                 </ul>
             </div>
         </nav>
@@ -67,7 +67,7 @@
                         out.print("<h3>Log out if you want to register a new user, or continue as " + ((UserBean)session.getAttribute("userBean")).getUsername() + "</h3>");
                         out.print("</div>");
                         out.print("<div class='row'>");
-                        out.print("<div class='col-sm-4' align='center'><a href='Logout.jsp' class='btn btn-primary btn-lg'>Log Out</a></div>");
+                        out.print("<div class='col-sm-4' align='center'><a href='Logout' class='btn btn-primary btn-lg'>Log Out</a></div>");
                         out.print("<div class='col-sm-4' align='center'><a href='Inventory.jsp' class='btn btn-primary btn-lg'>Continue to Inventory</a></div>");
                         out.print("<div class='col-sm-4' align='center'></div>");
                         out.print("</div>");

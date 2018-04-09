@@ -49,7 +49,7 @@ public class Logout extends HttpServlet {
             }
             else
             {
-                response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("How can you log out if you never logged in?", "utf-8"));
+                response.sendRedirect("Welcome.jsp?message="+URLEncoder.encode("You can't log out if you aren't logged in", "utf-8"));
                 return;
             }
             

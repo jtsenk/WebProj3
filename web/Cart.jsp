@@ -28,7 +28,7 @@
                     <li><a href="Login.jsp">Login</a></li>
                     <li><a href="Inventory.jsp">Inventory</a></li>
                     <li class="active"><a href="Cart.jsp">View Cart</a></li>
-                    <li><a href="Logout.jsp">Log Out</a></li>
+                    <li><a href="Logout">Log Out</a></li>
                 </ul>
             </div>
         </nav>
